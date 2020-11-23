@@ -2,7 +2,7 @@
 
 ## Implementation Idea
 
-I used Python multithreading to achieve the desired reult for the program. To achieve a maximum of 3 clients connected at the same time, I keep track of the number of threades created, if the cpaacity exceeds 3 then a new client will not be able to connect until one of the previous clinets dissconnects.The Server will not crash but will display a thread overload message and send it to the client as well. It will ulimtaley refuse connection to the client. 
+I used Python multithreading to achieve the desired results for the program. To achieve a maximum of 3 clients connected at the same time, I keep track of the number of threades created, if the cpaacity exceeds 3 then a new client will not be able to connect until one of the previous clinets dissconnects.The Server will not crash but will display a thread overload message and send it to the client as well. It will ulimtaley refuse connection to the client. 
 
 I named all the functions and variable appropriately so it should be very easy to follow the implementation logic
 
