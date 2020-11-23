@@ -1,7 +1,7 @@
 
 import argparse
 import socket
-import string
+import string, os
 
 client_socket = socket.socket()
 
@@ -21,11 +21,9 @@ def check_alert(msg):
 	if 'win' in msg.lower():
 		print("You Win!")
 		print("Game Over!")
-		print("Exiting Program")
 	elif 'lose' in msg.lower():
-		print(msg.lower())
+		print(msg.lower()[1:])
 		print("Game Over!")
-		print("Exiting Program")
 	elif 'overload' in msg.lower():
 		print("Sorry love, server only supports 3 clients at a time!")
 		print("It is currently overloaded!")
@@ -35,7 +33,7 @@ def check_alert(msg):
 
 	print("Exiting Program")
 	client_socket.close()
-	exit(0)
+	exit()
 
 def parse_server_resp(server_responce):
 	decoded_msg = server_responce.decode('utf-8')
@@ -46,7 +44,7 @@ def parse_server_resp(server_responce):
 		msg_type = "game"
 		word_length = int(decoded_msg[1])
 		num_incorrect = int(decoded_msg[2])
-		data = decoded_msg[2:]
+		data = decoded_msg[3:]
 		return (msg_type, (word_length, num_incorrect, data))
 	else:
 		#alert msg case
@@ -55,22 +53,33 @@ def parse_server_resp(server_responce):
 		return (msg_type, alert)
 
 def connect_to_server(IP, PORT):
+	incorrect_letters = []
+	incorrect_guesses = 0
+
 	try:
 		client_socket.connect((IP, PORT))
 	except socket.error as e:
 		print(str(e))
 
+	#Handling of initial handshake
 	send_msg(client_socket, cheat_code)
+	server_responce = client_socket.recv(1024)
+	msg_type, content = parse_server_resp(server_responce)
+	#print("Raw: " + str(server_responce.decode('utf-8')))
+	#print("type : " + msg_type)
+	#print("content : " + str(content))
+
+
+	print(content[2])
+	print("Incorrect Guesses: " + str(incorrect_letters) + '\n')
 	
-	incorrect_letters = []
-	incorrect_guesses = 0
 	while True:
 		client_guess = input('Letter to guess: ').lower()
 		if client_guess not in string.ascii_letters:
 			print("Error! Please guess a letter.")
 			continue
 		elif client_guess in incorrect_letters:
-			print("Error! Letter A has been guessed before, please guess another letter.")
+			print("Error! Letter has been guessed before, please guess another letter.")
 			continue
 
 		send_msg(client_socket, client_guess)
@@ -86,7 +95,7 @@ def connect_to_server(IP, PORT):
 				incorrect_letters.append(client_guess)
 
 			print(content[2])
-			print("Inorrect Guesses: " + str(incorrect_letters))
+			print("Incorrect Guesses: " + str(incorrect_letters) + '\n')
 
 	client_socket.close()
 
@@ -102,7 +111,7 @@ def main():
 		ready = input('Ready to start game? (y/n):').lower()
 		if ready == 'n':
 			print("Nothing sent to the server, closing the program")
-			exit(0)
+			exit()
 		elif ready == 'y':
 			cheat_code = ''
 			break
