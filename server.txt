@@ -1,0 +1,26 @@
+## Server Output For the both cases in client.txt (session stayed active)
+
+davgab@r4-128-61-90-63 Sockets-II % python3 server.py 8888
+Waitiing for connections..
+
+A new player has connected! IP: 127.0.0.1 with port: 51112
+
+Ended connection with player
+
+A new player has connected! IP: 127.0.0.1 with port: 51119
+
+Ended connection with player
+
+
+## Server Overloaded Example Output
+
+davgab@r4-128-61-90-63 Sockets-II % python3 server.py 8888
+Waitiing for connections..
+
+A new player has connected! IP: 127.0.0.1 with port: 51132
+
+A new player has connected! IP: 127.0.0.1 with port: 51133
+
+A new player has connected! IP: 127.0.0.1 with port: 51134
+
+Thread capacity of 3 has been reached

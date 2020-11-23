@@ -1,3 +1,4 @@
+#Author: Davit Dabrielyan
 
 import argparse
 from _thread import *
@@ -63,7 +64,7 @@ def threaded_server_for_client(connection):
 	#print("Here:" + received_data)
 	word_to_guess_orig = pick_random_word(received_data)
 	word_to_guess = list(word_to_guess_orig)
-	print("Word to be guessed: " + str(word_to_guess))
+	#print("Word to be guessed: " + str(word_to_guess))
 
 	incorrect_count = 0
 	current_state = '_' * word_length
@@ -97,7 +98,7 @@ def threaded_server_for_client(connection):
 			else:
 				game_msg(connection, incorrect_count, current_state)
 
-	print("Ended connection with player")
+	print("Ended connection with player\n")
 	connection.close()
 	thread_count -= 1
 
@@ -122,16 +123,16 @@ def main():
 	except socket.error as e:
 		print(str(e))
 
-	print('Waitiing for connections..')
+	print('Waitiing for connections..\n')
 	server_socket.listen(5) #number of queued connections
 
 	while True:
 		client, (ip, port) = server_socket.accept()
 		if thread_count == 3:
-			print("Thread capacity of 3 has been reached")
+			print("Thread capacity of 3 has been reached\n")
 			alert_msg(client, "server-overloaded")
 			continue
-		print('A new player has connected! IP: ' + ip + ' with port: ' + str(port))
+		print('A new player has connected! IP: ' + ip + ' with port: ' + str(port) + '\n')
 		start_new_thread(threaded_server_for_client, (client, ))
 		thread_count += 1
 

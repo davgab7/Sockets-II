@@ -1,0 +1,73 @@
+##Win Case: ========
+
+davgab@r4-128-61-90-63 Sockets-II % python3 client.py localhost 8888
+Ready to start game? (y/n):4
+_____
+Incorrect Guesses: []
+
+Letter to guess: a
+__a__
+Incorrect Guesses: []
+
+Letter to guess: h
+h_a__
+Incorrect Guesses: []
+
+Letter to guess: m
+h_a__
+Incorrect Guesses: ['m']
+
+Letter to guess: n
+h_a__
+Incorrect Guesses: ['m', 'n']
+
+Letter to guess: t
+h_a_t
+Incorrect Guesses: ['m', 'n']
+
+Letter to guess: y
+h_a_t
+Incorrect Guesses: ['m', 'n', 'y']
+
+Letter to guess: e
+hea_t
+Incorrect Guesses: ['m', 'n', 'y']
+
+Letter to guess: r
+You Win!
+Game Over!
+Exiting Program
+
+
+##Lose case: =========
+
+davgab@r4-128-61-90-63 Sockets-II % python3 client.py localhost 8888
+Ready to start game? (y/n):y
+_____
+Incorrect Guesses: []
+
+Letter to guess: f
+_____
+Incorrect Guesses: ['f']
+
+Letter to guess: d
+_____
+Incorrect Guesses: ['f', 'd']
+
+Letter to guess: g
+_____
+Incorrect Guesses: ['f', 'd', 'g']
+
+Letter to guess: w
+_____
+Incorrect Guesses: ['f', 'd', 'g', 'w']
+
+Letter to guess: a
+_____
+Incorrect Guesses: ['f', 'd', 'g', 'w', 'a']
+
+Letter to guess: b
+you lose! the word: seven
+
+Game Over!
+Exiting Program
