@@ -66,10 +66,9 @@ def connect_to_server(IP, PORT):
 	send_msg(client_socket, cheat_code)
 	server_responce = client_socket.recv(1024)
 	msg_type, content = parse_server_resp(server_responce)
-	#print("Raw: " + str(server_responce.decode('utf-8')))
-	#print("type : " + msg_type)
-	#print("content : " + str(content))
-
+	
+	if msg_type == 'alert':
+		check_alert(content)
 
 	print(content[2])
 	print("Incorrect Guesses: " + str(incorrect_letters) + '\n')
